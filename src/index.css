@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Roboto Flex';
+  /* при публикации заменить путь на /fonts/RobotoFlex.ttf */
+  src: url('../public/fonts/RobotoFlex.ttf') format('truetype');
+  font-weight: 100 1000;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  /* при публикации заменить путь на /fonts/RobotoFlex.ttf */
+  src: url('../public/fonts/PlayfairDisplay.ttf') format('truetype');
+  font-weight: 100 1000;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Playfair Display Italic';
+  /* при публикации заменить путь на /fonts/RobotoFlex.ttf */
+  src: url('../public/fonts/PlayfairDisplay-Italic.ttf') format('truetype');
+  font-weight: 100 1000;
+  font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-primary text-primary;
+  }
+}

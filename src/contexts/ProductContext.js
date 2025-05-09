@@ -8,9 +8,8 @@ export const ProductProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_DB_URL}`);
+        const response = await fetch(`${process.env.REACT_APP_DB_URL_PRODUCTS}`);
         const data = await response.json();
-        // console.log(data);
         setProducts(data);
       } catch (error) {
         console.error('Ошибка при загрузке товаров: ', error);

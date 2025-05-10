@@ -5,32 +5,46 @@ import { BsCart2 } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { MdFavoriteBorder } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import { AiOutlineHome } from "react-icons/ai";
 
 import { CartContext } from "../contexts/CartContext";
 import { SidebarContext } from "../contexts/SidebarContext";
+import { SearchContext } from "../contexts/SearchContext";
 
 const Header = () => {
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { getItemCount } = useContext(CartContext);
   const itemCount = getItemCount();
+  const { setIsSearchOpen, setQuery } = useContext(SearchContext);
 
   return (
     <>
-      {/* Логотип всегда наверху */}
       <header className="py-4 sticky top-0 z-10 bg-white shadow-sm">
-        <div className="container mx-auto flex justify-center md:justify-between items-center px-4">
-          {/* Логотип по центру на мобилках, слева на md+ */}
-          <Link to="/" className="block">
-            <img
-              src="/images/logos/mk-logo-pink.svg"
-              alt="Mary Kay"
-              className="h-6 mx-auto md:mx-0"
-            />
-          </Link>
+        <div className="container mx-auto flex justify-between items-center px-4">
+          {/* Блок: логотип + меню */}
+          <div className="flex justify-center md:justify-start items-center gap-14 w-full md:w-auto">
+            <Link to="/" className="block">
+              <img
+                src="/images/logos/mk-logo-pink.svg"
+                alt="Mary Kay"
+                className="h-6"
+              />
+            </Link>
+
+            {/* Меню (только на md+) */}
+            <div className="hidden md:flex text-sm text-black gap-8">
+              <Link to="/">
+                <p>каталог</p>
+              </Link>
+              <Link to="/">
+                <p>идеи подарков</p>
+              </Link>
+            </div>
+          </div>
 
           {/* Иконки справа (только на md+) */}
           <div className="hidden md:flex items-center gap-5 text-xl text-black">
-            <button>
+            <button onClick={() => setIsSearchOpen(true)}>
               <FiSearch />
             </button>
             <button>
@@ -54,28 +68,39 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Нижнее мобильное меню */}
+      {/* Хедер на sm экранах */}
       <div className="md:hidden fixed bottom-4 left-0 w-full px-4 z-40">
         <div className="grid grid-cols-5 bg-white rounded-full shadow-md border border-gray-200 max-w-md mx-auto py-3 px-4 items-center">
           {/* Домой */}
-          <Link to="/" className="flex justify-center">
-            <svg
-              className="w-6 h-6 text-gray-500"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M3 12l9-9 9 9h-3v9H6v-9H3z" />
-            </svg>
+          <Link
+            to="/"
+            onClick={() => {
+              setIsOpen(false);
+              setIsSearchOpen(false);
+            }}
+            className="flex justify-center"
+          >
+            <AiOutlineHome className="w-6 h-6 text-gray-500" />
           </Link>
 
           {/* Избранное */}
-          <Link to="/favorites" className="flex justify-center">
+          <Link
+            to="/favorites"
+            onClick={() => {
+              setIsOpen(false);
+              setIsSearchOpen(false);
+            }}
+            className="flex justify-center"
+          >
             <MdFavoriteBorder className="w-6 h-6 text-gray-500" />
           </Link>
 
           {/* Корзина — по центру, выше и яркая */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => {
+              setIsOpen(!isOpen);
+              setIsSearchOpen(false);
+            }}
             className="relative flex justify-center -mt-8"
           >
             <div className="bg-pinkaccent w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg">
@@ -89,12 +114,36 @@ const Header = () => {
           </button>
 
           {/* Поиск */}
-          <Link to="/search" className="flex justify-center">
+          {/* <Link
+            to="/search"
+            onClick={() => {
+              setIsOpen(false);
+              setIsSearchOpen(true);
+            }}
+            className="flex justify-center"
+          >
             <FiSearch className="w-6 h-6 text-gray-500" />
-          </Link>
+          </Link> */}
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              setQuery("");
+              setIsSearchOpen(prev => !prev);
+            }}
+            className="flex justify-center"
+          >
+            <FiSearch className="w-6 h-6 text-gray-500" />
+          </button>
 
           {/* Профиль */}
-          <Link to="/profile" className="flex justify-center">
+          <Link
+            to="/profile"
+            onClick={() => {
+              setIsOpen(false);
+              setIsSearchOpen(false);
+            }}
+            className="flex justify-center"
+          >
             <CgProfile className="w-6 h-6 text-gray-500" />
           </Link>
         </div>

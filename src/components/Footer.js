@@ -18,7 +18,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-white py-10 border-t border-gray-100 text-sm text-gray-600">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 md:gap-8">
         {/* ЛОГО и соцсети */}
         <div className="flex flex-col items-start gap-4">
           <img src="/images/logos/mk-logo-pink.svg" alt="Mary Kay" className="h-6" />
@@ -40,11 +40,11 @@ const Footer = () => {
         {[
           {
             title: "Компания",
-            links: ["О нас", "Вакансии"]
+            links: ["О компании", "Разработка продукции", "Вакансии", "Пресс-центр"]
           },
           {
-            title: "О нас",
-            links: ["О компании", "Гарантия качества", "Разработка продукции", "Пресс-центр"]
+            title: "Покупателям",
+            links: ["Гарантия качества", "Доставка и оплата", "Возврат товаров"]
           },
           {
             title: "Контакты",
@@ -53,6 +53,14 @@ const Footer = () => {
               <a href="mailto:info@marykay.ru" key="email">info@marykay.ru</a>,
               "142093, Москва, Ленинградское шоссе, д.16, стр.3"
             ]
+          },
+          {
+            title: "Юридическая информация",
+            links: [
+              <Link to="/privacy-policy" className="hover:text-pinkaccent transition-colors duration-200">Политика конфиденциальности</Link>,
+              <Link to="/terms-of-use" className="hover:text-pinkaccent transition-colors duration-200">Пользовательское соглашение</Link>,
+              <Link to="/cookies-policy" className="hover:text-pinkaccent transition-colors duration-200">Политика cookies</Link>
+            ]
           }
         ].map((section, index) => (
           <div key={index}>
@@ -60,7 +68,7 @@ const Footer = () => {
               className="text-pinkaccent font-bold mb-3 flex items-center w-full md:cursor-default"
               onClick={() => isMobile && toggleSection(index)}
             >
-              <span className="flex items-center gap-2 text-2xl">
+              <span className="flex items-center gap-2 text-2xl text-left">
                 {section.title}
                 {isMobile && <FaChevronDown className={`transform transition-transform text-lg ${openSection === index ? 'rotate-180' : ''}`} />}
               </span>

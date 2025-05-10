@@ -29,13 +29,13 @@ const Product = ({ product }) => {
   };
 
   return (
-    <div className="relative rounded-3xl shadow-md bg-white p-4 flex flex-col">
-    {/* <div className="relative rounded-3xl shadow-md bg-white p-4 flex flex-col"> */}
+    <div className="relative h-full rounded-3xl shadow-md bg-white p-4 flex flex-col">
+      {/* <div className="relative rounded-3xl shadow-md bg-white p-4 flex flex-col"> */}
       <Link to={`/product/${_id}`} className="block flex flex-col h-full">
         {/* Картинка товара */}
-        <div className="h-[300px] mb-4 relative overflow-hidden group transition">
+        <div className="h-[250px] mb-4 relative overflow-hidden group transition">
           <div className="w-full h-full flex justify-center items-center">
-            <div className="w-[200px] mx-auto flex justify-center items-center relative">
+            <div className="w-full h-full relative">
               <img
                 src={
                   images && images.length > 0
@@ -43,7 +43,7 @@ const Product = ({ product }) => {
                     : "/images/placeholders/product_placeholder.webp"
                 }
                 alt={title}
-                className="max-h-[300px] object-cover group-hover:scale-110 transition duration-300"
+                className="w-full h-full object-contain group-hover:scale-105 transition duration-300"
               />
             </div>
           </div>
@@ -81,7 +81,7 @@ const Product = ({ product }) => {
         </div>
         <button
           // onClick={handleBasketClick}
-          onClick={()=> addToCart(product)}
+          onClick={() => addToCart(product)}
           className="flex items-center justify-center w-10 h-10 bg-pinkaccent rounded-full text-white transition-all duration-300 hover:bg-pinkaccent/80 active:bg-pinkaccent/60"
         >
           <AiOutlineShopping className="text-2xl text-white" />

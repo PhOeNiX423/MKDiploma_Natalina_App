@@ -12,14 +12,13 @@ const SidebarProvider = ({ children }) => {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.classList.add("overflow-hidden");
+      document.body.classList.add("body-no-scroll");
     } else {
-      document.body.classList.remove("overflow-hidden");
+      document.body.classList.remove("body-no-scroll");
     }
-  
-    // Очистка при размонтировании компонента
+
     return () => {
-      document.body.classList.remove("overflow-hidden");
+      document.body.classList.remove("body-no-scroll");
     };
   }, [isOpen]);
 

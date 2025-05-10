@@ -16,7 +16,7 @@ const Banner = () => {
         </p>
         <Link
           to="/catalog"
-          className="inline-block px-6 py-3 text-white border border-white rounded-full transition duration-300 hover:bg-white hover:text-pinksecondary"
+          className="inline-block px-6 py-3 text-white font-bold bg-white text-pinkaccent rounded-full transition duration-300 hover:bg-white hover:text-pinksecondary"
         >
           Перейти в каталог →
         </Link>

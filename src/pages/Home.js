@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import Product from "../components/Product";
 import Newsletter from "../components/Newsletter";
-import Categories from "../components/Categories";
 import Banner from "../components/Banner";
 
 const Home = () => {

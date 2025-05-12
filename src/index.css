@@ -31,8 +31,3 @@
     @apply font-primary text-primary;
   }
 }
-
-.body-no-scroll {
-  overflow: hidden;
-  padding-right: 15px; /* примерно ширина скроллбара */
-}

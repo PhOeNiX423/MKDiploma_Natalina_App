@@ -1,13 +1,18 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import ProductDetails from './pages/ProductDetails';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import Footer from './components/Footer';
-import NotFound from './pages/NotFound';
-import Search from './components/Search';
-import { SearchProvider } from './contexts/SearchContext';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import Home from "./pages/Home";
+import ProductDetails from "./pages/ProductDetails";
+import NotFound from "./pages/NotFound";
+import Catalog from "./pages/Catalog";
+
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
+import Search from "./components/Search";
+
+import { SearchProvider } from "./contexts/SearchContext";
+import { CatalogProvider } from "./contexts/CatalogContext";
 
 const App = () => {
   return (
@@ -18,8 +23,16 @@ const App = () => {
           <Search />
           <Sidebar />
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/product/:id' element={<ProductDetails />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route
+              path="/catalog"
+              element={
+                <CatalogProvider>
+                  <Catalog />
+                </CatalogProvider>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

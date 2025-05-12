@@ -1,29 +1,74 @@
+/**
+ * Categories.js
+ *
+ * Компонент отображает основные категории товаров в виде иконок, с переходом в каталог.
+ *
+ * Поведение:
+ * - При клике на категорию выполняется переход на /catalog
+ * - Одновременно в состояние передаётся нужная категория, чтобы отфильтровать товары
+ * - Использует `useNavigate` из react-router для программного перехода
+ *
+ * Используется на главной странице для быстрого доступа к популярным категориям каталога.
+ */
+
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
-  { title: "Декоративная косметика", img: "/images/categories/decorative.png", link: "#" },
-  { title: "Уходовая косметика", img: "/images/categories/skincare.png", link: "#" },
-  { title: "Парфюмерия", img: "/images/categories/perfume.png", link: "#" },
-  { title: "Подарочные наборы", img: "/images/categories/gifts.png", link: "#" },
+  {
+    title: "Декоративная косметика",
+    img: "/images/categories/decorative.png",
+    category: "декоративная косметика",
+  },
+  {
+    title: "Уходовая косметика",
+    img: "/images/categories/skincare.png",
+    category: "уходовая косметика",
+  },
+  {
+    title: "Бьюти-системы",
+    img: "/images/categories/beauty_system.png",
+    category: "бьюти-система",
+  },
+  {
+    title: "Для мужчин",
+    img: "/images/categories/for_men.png",
+    category: "для мужчин",
+  },
 ];
 
 const Categories = () => {
+  const navigate = useNavigate();
+
+  const handleClick = (category) => {
+    navigate("/catalog", { state: { category } });
+  };
+
   return (
-    <section className="">
-      <div className="container mx-auto max-w-5xl text-center">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 place-items-center">
+    <section className="py-12">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-pinkaccent mb-10">
+          Популярные категории
+        </h2>
+
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
           {categories.map((cat, index) => (
-            <Link to={cat.link} key={index} className="flex flex-col items-center gap-2 group">
-              <div className="sm:w-30 sm:h-30 md:w-32 md:h-32 overflow-hidden flex items-center justify-center rounded-full">
+            <button
+              key={index}
+              onClick={() => handleClick(cat.category)}
+              className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center group hover:bg-pink-50"
+            >
+              <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-white border border-pinkaccent border-1 flex items-center justify-center overflow-hidden mb-4">
                 <img
                   src={cat.img}
                   alt={cat.title}
-                  className="object-contain w-full h-full scale-75 group-hover:scale-[0.85] transition-transform duration-300"
+                  className="object-contain w-full h-full scale-75 group-hover:scale-90 transition-transform duration-300"
                 />
               </div>
-              <p className="text-sm md:text-base font-medium">{cat.title}</p>
-            </Link>
+              <p className="text-sm md:text-base font-medium text-center text-gray-800 group-hover:text-pinkaccent">
+                {cat.title}
+              </p>
+            </button>
           ))}
         </div>
       </div>

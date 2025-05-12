@@ -1,16 +1,49 @@
-import React, { useContext, useState } from "react";
+/**
+ * Product.js
+ * 
+ * Компонент карточки товара для отображения в каталоге, на главной странице и в результатах поиска.
+ * 
+ * Принимает:
+ * - `product` — объект с данными о товаре (id, название, изображения, цена, рейтинг и т.д.)
+ * 
+ * Использует:
+ * - `CartContext` — для добавления товара в корзину
+ * - `react-icons` — для отображения значков корзины, избранного и рейтинга
+ * 
+ * Функциональность:
+ * - Отображает:
+ *   - Главное изображение товара
+ *   - Название, линейку, рейтинг, цену, описание
+ * - Клик по карточке ведёт на страницу товара (`/product/:id`)
+ * - Иконка корзины добавляет товар с количеством 1
+ * - Иконка "избранное" переключает локальное состояние (визуальный эффект)
+ * 
+ * Особенности:
+ * - При отсутствии изображения отображается плейсхолдер
+ * - Описание обрезается на 3 строки (через `line-clamp-3`)
+ * - Все клики по иконкам не мешают переходу по ссылке
+ */
+
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+
 import { CartContext } from "../contexts/CartContext";
 
-// Значки
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { AiOutlineShopping } from "react-icons/ai";
 
 const Product = ({ product }) => {
   const { addToCart } = useContext(CartContext);
-  const { _id, images, title, description, price, rating, f_category } =
-    product;
+  const {
+    _id,
+    images,
+    product_line,
+    title,
+    description,
+    price,
+    average_rating,
+  } = product;
 
   // Локальное состояние: избран ли товар
   const [isFavorite, setIsFavorite] = useState(false);
@@ -21,16 +54,14 @@ const Product = ({ product }) => {
     setIsFavorite(!isFavorite);
   };
 
-  // Функция для обработки клика по корзинке
-  const handleBasketClick = (e) => {
-    e.stopPropagation(); // чтобы клик по корзинке тоже не переходил по ссылке
-    // console.log("Товар добавлен в корзину:", _id);
-    // Здесь потом добавить добавление в корзину
-  };
+  // // Функция для обработки клика по корзинке
+  // const handleBasketClick = (e) => {
+  //   e.stopPropagation(); // чтобы клик по корзинке тоже не переходил по ссылке
+  //   // console.log("Товар добавлен в корзину:", _id);
+  // };
 
   return (
     <div className="relative h-full rounded-3xl shadow-md bg-white p-4 flex flex-col">
-      {/* <div className="relative rounded-3xl shadow-md bg-white p-4 flex flex-col"> */}
       <Link to={`/product/${_id}`} className="block flex flex-col h-full">
         {/* Картинка товара */}
         <div className="h-[250px] mb-4 relative overflow-hidden group transition">
@@ -51,19 +82,14 @@ const Product = ({ product }) => {
 
         {/* Категория, название, цена, описание */}
         <div className="flex flex-col flex-grow gap-2">
-          {/* <div className="text-xs text-secondary font-light mb-1">
-            {f_category}
-          </div> */}
           <div className="flex justify-between items-start gap-2">
-            <h2 className="font-semibold text-left leading-tight">{title}</h2>
+            <h2 className="font-semibold text-left leading-tight">
+              {title} {product_line}
+            </h2>
             <div className="flex items-center gap-1 font-semibold">
-              <span>{rating.toFixed(1)}</span>
+              <span>{average_rating.toFixed(1)}</span>
               <FaStar className="text-yellowmedium text-sm" />
             </div>
-            {/* <div className="flex items-center gap-1 font-semibold">
-            <span>{price.toLocaleString('ru-RU')}</span>
-            <span>₽</span>
-            </div> */}
           </div>
           <p className="text-secondary text-sm line-clamp-3 mb-4">
             {description}
@@ -73,15 +99,20 @@ const Product = ({ product }) => {
 
       {/* Рейтинг и корзина */}
       <div className="flex items-center justify-between mt-2">
-        {/* <span>{rating.toFixed(1)}</span>
-          <FaStar className="text-yellowmedium text-sm" /> */}
         <div className="flex items-center gap-1 font-semibold text-lg">
           <span>{price.toLocaleString("ru-RU")}</span>
           <span>₽</span>
         </div>
         <button
-          // onClick={handleBasketClick}
-          onClick={() => addToCart(product)}
+          onClick={() =>
+            addToCart({
+              _id,
+              title,
+              price,
+              image: images?.[0] ?? "",
+              quantity: 1,
+            })
+          }
           className="flex items-center justify-center w-10 h-10 bg-pinkaccent rounded-full text-white transition-all duration-300 hover:bg-pinkaccent/80 active:bg-pinkaccent/60"
         >
           <AiOutlineShopping className="text-2xl text-white" />

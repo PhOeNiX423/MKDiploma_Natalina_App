@@ -1,31 +1,43 @@
+/**
+ * Home.js
+ * 
+ * Главная страница сайта.
+ * 
+ * - Загружает товары из ProductContext и фильтрует их по соответствующим тегам.
+ * - Отображает несколько секций:
+ *   - <Banner /> — верхний баннер.
+ *   - Блок новинок — отображаются товары с тегом "новое" в сетке.
+ *   - <Newsletter /> — форма подписки на рассылку.
+ * - Имеет закомментированную секцию категорий, которую можно включить позже.
+ * - Использует компонент <Product /> для отображения карточек товаров.
+ */
+
 import React, { useContext } from "react";
+
 import { ProductContext } from "../contexts/ProductContext";
+
 import Product from "../components/Product";
 import Newsletter from "../components/Newsletter";
-import Banner from "../components/Banner";
+import Hero from "../components/Hero";
+import Categories from "../components/Categories";
 
 const Home = () => {
   const { products } = useContext(ProductContext);
   const filteredProducts = products.filter((item) => {
-    return item.t_category && item.t_category.includes("новое");
+    return item.tags && item.tags.includes("новое");
   });
 
   return (
     <main>
       <section className="pb-8 md:pb-16">
         <div className="mx-auto">
-          <Banner />
+          <Hero />
         </div>
       </section>
 
-      {/* <section className="pb-8 md:pb-16">
-        <div className="container mx-auto"> */}
-          {/* <h2 className="text-3xl text-pinkaccent font-bold text-center pb-8">
-            Популярные категории
-          </h2> */}
-          {/* <Categories /> */}
-        {/* </div>
-      </section> */}
+      <section className="pb-8 md:pb-16">
+          <Categories />
+      </section>
 
       <section className="pb-8 md:pb-16">
         <h2 className="text-3xl text-pinkaccent font-bold text-center pb-8">

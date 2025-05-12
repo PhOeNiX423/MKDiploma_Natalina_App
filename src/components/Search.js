@@ -1,7 +1,32 @@
+/**
+ * Search.js
+ *
+ * Компонент полноэкранного поиска по товарам.
+ *
+ * Использует:
+ * - `SearchContext` — для управления состоянием поиска (`isSearchOpen`, `query`, `setQuery`, `setIsSearchOpen`)
+ * - `ProductContext` — для доступа ко всем товарам
+ *
+ * Основной функционал:
+ * - При открытии блокирует прокрутку страницы (`body-no-scroll`)
+ * - Автоматически фокусирует поле ввода при открытии
+ * - Закрывается по клику вне блока поиска или при нажатии Escape
+ * - Фильтрует товары по названию (по полю `title`) в реальном времени
+ *
+ * Адаптивность:
+ * - На `sm` экранах (мобильных) поиск отображается как отдельная страница
+ * - На `md+` экранах — всплывающее окно по центру экрана с полупрозрачным фоном
+ *
+ * Результаты отображаются в виде сетки карточек <Product />, или сообщение «Товары не найдены».
+ */
+
 import React, { useContext, useEffect, useRef, useState } from "react";
+
 import { SearchContext } from "../contexts/SearchContext";
 import { ProductContext } from "../contexts/ProductContext";
+
 import Product from "../components/Product";
+
 import { FiSearch } from "react-icons/fi";
 
 const Search = () => {
@@ -44,13 +69,18 @@ const Search = () => {
 
   useEffect(() => {
     if (isSearchOpen) {
-      document.body.classList.add("body-no-scroll");
+      const scrollBarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
     } else {
-      document.body.classList.remove("body-no-scroll");
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     }
 
     return () => {
-      document.body.classList.remove("body-no-scroll");
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     };
   }, [isSearchOpen]);
 
@@ -90,7 +120,7 @@ const Search = () => {
                 filtered.map((product) => (
                   <div
                     key={product._id + query}
-                    className="h-full animate-slide-in-right transition-all duration-300"
+                    className="h-full animate-slide-in-up transition-all duration-300"
                   >
                     <Product product={product} />
                   </div>

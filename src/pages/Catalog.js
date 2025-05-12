@@ -1,53 +1,64 @@
 /**
  * Catalog.js
- * 
+ *
  * Страница каталога товаров с фильтрацией и сортировкой.
- * 
+ *
  * - Получает данные из CatalogContext:
  *   - Список всех категорий
  *   - Отфильтрованные товары
  *   - Активную категорию
  *   - Текущий способ сортировки
  *   - Функции для применения фильтра и сортировки
- * 
+ *
  * - Состоит из двух колонок:
  *   - Сайдбар с категориями, которые можно выбрать
  *   - Основная секция с сортировкой и сеткой карточек товаров
- * 
+ *
  * - Использует компонент <Product /> для отображения каждого товара.
  */
 
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 
-import { CatalogContext } from '../contexts/CatalogContext';
+import { CatalogContext } from "../contexts/CatalogContext";
 
-import Product from '../components/Product';
+import Product from "../components/Product";
 
 const Catalog = () => {
   const {
     categories,
+    productLines,
+    applications,
     filteredProducts,
     activeCategory,
+    selectedProductLines,
+    selectedApplications,
     sortOrder,
     handleCategoryFilter,
+    toggleProductLine,
+    toggleApplication,
     handleSortChange,
+    resetFilters,
   } = useContext(CatalogContext);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Каталог продукции</h1>
+    <div className="py-8">
+      <div className="text-center">
+        <h1 className="text-3xl md:text-5xl font-semibold mb-4 text-pinkaccent">Каталог продукции</h1>
+        <p className="text-pinksecondary text-lg">Найдите свой идеальный продукт — легко и удобно</p>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] gap-8 mt-16">
         {/* Сайдбар фильтров */}
         <aside className="space-y-6">
+          {/* Категории */}
           <div>
             <h2 className="font-semibold mb-2">Категории</h2>
             <ul className="space-y-1 text-sm">
               <li>
                 <button
-                  onClick={() => handleCategoryFilter('Все')}
+                  onClick={() => handleCategoryFilter("Все")}
                   className={`hover:underline ${
-                    activeCategory === 'Все' ? 'font-bold text-pinkaccent' : ''
+                    activeCategory === "Все" ? "font-bold text-pinkaccent" : ""
                   }`}
                 >
                   Все
@@ -58,7 +69,7 @@ const Catalog = () => {
                   <button
                     onClick={() => handleCategoryFilter(cat)}
                     className={`hover:underline ${
-                      activeCategory === cat ? 'font-bold text-pinkaccent' : ''
+                      activeCategory === cat ? "font-bold text-pinkaccent" : ""
                     }`}
                   >
                     {cat}
@@ -67,6 +78,58 @@ const Catalog = () => {
               ))}
             </ul>
           </div>
+
+          {/* Линейка */}
+          <div>
+            <h2 className="font-semibold mb-2">Линейка</h2>
+            <ul className="space-y-1 text-sm">
+              {productLines.map((line) => (
+                <li key={line}>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedProductLines.includes(line)}
+                      onChange={() => toggleProductLine(line)}
+                      className="accent-pinkaccent"
+                    />
+                    {line}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Область применения */}
+          <div>
+            <h2 className="font-semibold mb-2">Область применения</h2>
+            <ul className="space-y-1 text-sm">
+              {applications.map((app) => (
+                <li key={app}>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedApplications.includes(app)}
+                      onChange={() => toggleApplication(app)}
+                      className="accent-pinkaccent"
+                    />
+                    {app}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {(activeCategory !== "Все" ||
+            selectedProductLines.length > 0 ||
+            selectedApplications.length > 0) && (
+            <div>
+              <button
+                onClick={resetFilters}
+                className="text-sm text-pinkaccent underline font-bold hover:no-underline"
+              >
+                Сбросить все
+              </button>
+            </div>
+          )}
         </aside>
 
         {/* Основная часть */}

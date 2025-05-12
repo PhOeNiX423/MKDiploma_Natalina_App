@@ -81,7 +81,7 @@ const Footer = () => {
     <footer className="bg-white pt-10 border-t border-gray-100 text-sm text-gray-600">
 
       {/* Блок 1: логотип и миссия */}
-      <div className="container mx-auto px-4 text-center md:text-center text-left">
+      <div className="text-center md:text-center text-left">
         <div className="flex flex-col items-start md:items-center gap-4">
           <img src="/images/logos/mk-logo-pink.svg" alt="Mary Kay" className="h-6" />
           <p className="text-gray-500 max-w-md">
@@ -105,7 +105,7 @@ const Footer = () => {
       <div className="w-full my-6 border-t border-white"></div>
 
       {/* Блок 2: колонки */}
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_1fr] gap-6 md:gap-8 text-[13px] md:text-[12px] pb-10">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_1fr] gap-6 md:gap-8 text-[13px] md:text-[12px] pb-10">
         {sections.map((section, index) => (
           <div key={index}>
             <button

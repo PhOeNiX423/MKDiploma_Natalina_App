@@ -43,8 +43,8 @@ const Home = () => {
         <h2 className="text-3xl text-pinkaccent font-bold text-center pb-8">
           Новинки
         </h2>
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-[30px] px-4 max-w-sm mx-auto md:max-w-none md:mx-0">
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-[30px] max-w-sm mx-auto md:max-w-none md:mx-0">
             {filteredProducts.map((product) => {
               return <Product product={product} key={product._id} />;
             })}

@@ -46,7 +46,7 @@ const Categories = () => {
 
   return (
     <section className="py-12">
-      <div className="container mx-auto px-4 text-center">
+      <div className="text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-pinkaccent mb-10">
           Популярные категории
         </h2>

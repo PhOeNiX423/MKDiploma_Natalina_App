@@ -46,7 +46,7 @@ const Header = () => {
   return (
     <>
       <header className="py-4 sticky top-0 z-10 bg-white shadow-sm">
-        <div className="container mx-auto flex justify-between items-center px-4">
+        <div className="container mx-auto flex justify-between items-center">
           {/* Блок: логотип + меню */}
           <div className="flex justify-center md:justify-start items-center gap-14 w-full md:w-auto">
             <Link to="/" className="block">
@@ -62,7 +62,7 @@ const Header = () => {
               <Link to="/catalog">
                 <p>каталог</p>
               </Link>
-              <Link to="/">
+              <Link to="/beauty_school">
                 <p>бьюти-школа</p>
               </Link>
             </div>

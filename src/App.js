@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import NotFound from "./pages/NotFound";
 import Catalog from "./pages/Catalog";
+import TrainingCenter from "./pages/TrainingCenter";
 
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
@@ -16,7 +17,7 @@ import { CatalogProvider } from "./contexts/CatalogContext";
 
 const App = () => {
   return (
-    <div className="overflow-hidden pb-14 md:pb-0">
+    <div className="container mx-auto overflow-hidden pb-14 md:pb-0">
       <Router>
         <SearchProvider>
           <Header />
@@ -25,6 +26,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/beauty_school" element={<TrainingCenter />} />
             <Route
               path="/catalog"
               element={

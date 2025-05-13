@@ -45,10 +45,10 @@ export const CatalogProvider = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.state?.category && products.length > 0) {
-      setActiveCategory(location.state.category);
+    if (location.state?.category) {
+      handleCategoryFilter(location.state.category);
     }
-  }, [location.state, products]);
+  }, [location.state?.category]);
 
   useEffect(() => {
     const fetchProducts = async () => {

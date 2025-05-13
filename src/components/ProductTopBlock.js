@@ -163,7 +163,7 @@ const ProductTopBlock = ({ product }) => {
 
           {/* Соцсети */}
           <div className="flex gap-4 text-secondary mt-2">
-            <FaWhatsapp className="hover:text-green-500 cursor-pointer" />
+            <FaWhatsapp className="text-2xl hover:text-green-500 cursor-pointer" />
           </div>
         </div>
       </div>

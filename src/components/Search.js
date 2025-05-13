@@ -98,7 +98,7 @@ const Search = () => {
       }}
     >
       {/* --- Верстка для sm --- */}
-      <div className="block md:hidden h-full w-full bg-white flex flex-col px-4">
+      <div className="block md:hidden h-full w-full bg-white flex flex-col px-4 animate-slide-in-up">
         {/* Поле поиска */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-300">
           <FiSearch className="text-2xl text-pinkaccent" />
@@ -142,7 +142,7 @@ const Search = () => {
             setQuery("");
           }}
         ></div>
-        <div className="relative bg-white w-full max-w-5xl mt-20 px-4 py-6 rounded-3xl overflow-y-auto max-h-full mx-4 z-10">
+        <div className="relative bg-white w-full max-w-5xl mt-20 px-4 py-6 rounded-3xl overflow-y-auto max-h-full mx-4 z-10 animate-slide-in-down">
           <div className="flex items-center gap-3 mb-6">
             <FiSearch className="text-2xl text-pinkaccent" />
             <input

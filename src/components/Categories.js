@@ -28,7 +28,7 @@ const categories = [
   {
     title: "Бьюти-системы",
     img: "/images/categories/beauty_system.png",
-    category: "бьюти-система",
+    category: "бьюти-системы",
   },
   {
     title: "Для мужчин",

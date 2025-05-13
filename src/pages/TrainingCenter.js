@@ -27,23 +27,66 @@ const TrainingCenter = () => {
           Видеоуроки
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {/* Пример одного видео */}
+          {/* Одно видео */}
           <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
             <div className="aspect-video">
               <video className="w-full h-full object-cover block" controls>
-                <source src="/videos/lesson1.mp4" type="video/mp4" />
+                <source src="/images/videos/video_1.mp4" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
               </video>
             </div>
             <div className="p-4">
-              <h3 className="text-lg font-semibold">Как выбрать продукцию</h3>
+              <h3 className="text-lg font-semibold">
+                Нейтральный макияж для любого случая
+              </h3>
               <p className="text-secondary text-sm mt-2">
-                Краткое описание урока, полезные советы для новичков.
+                Минималистичный и утончённый образ — с этим макияжем вы будете
+                выглядеть стильно каждый день. Идеально подойдёт для офиса,
+                встреч или прогулки.
               </p>
             </div>
           </div>
 
-          {/* Добавь больше блоков видео по аналогии */}
+          {/* Одно видео */}
+          <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+            <div className="aspect-video">
+              <video className="w-full h-full object-cover block" controls>
+                <source src="/images/videos/video_2.mp4" type="video/mp4" />
+                Ваш браузер не поддерживает видео.
+              </video>
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">
+                Ягодный макияж с акцентом на губы
+              </h3>
+              <p className="text-secondary text-sm mt-2">
+                Осенний макияж в ягодных тонах, который подчеркнёт вашу
+                индивидуальность. Следуйте за визажистом Mary Kay и создайте
+                образ с выразительными губами и тёплым румянцем.
+              </p>
+            </div>
+          </div>
+
+          {/* Одно видео */}
+          <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+            <div className="aspect-video">
+              <video className="w-full h-full object-cover block" controls>
+                <source src="/images/videos/video_3.mp4" type="video/mp4" />
+                Ваш браузер не поддерживает видео.
+              </video>
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">
+                Лёгкий макияж на каждый день
+              </h3>
+              <p className="text-secondary text-sm mt-2">
+                Освежающий и быстрый повседневный макияж, подходящий для селфи,
+                офиса или прогулки. Узнайте, как легко создать мягкий образ
+                всего за пару минут!
+              </p>
+            </div>
+          </div>
+          {/* Можно добавить больше видео по аналогии */}
         </div>
       </section>
 
@@ -70,7 +113,24 @@ const TrainingCenter = () => {
             </a>
           </article>
 
-          {/* Добавь больше блоков статей по аналогии */}
+          {/* Одна статья */}
+          <article className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
+            <h3 className="text-xl font-semibold mb-2">
+              Секреты идеального макияжа
+            </h3>
+            <p className="text-secondary line-clamp-3">
+              Узнайте, как правильно подбирать оттенки, наносить тон и создавать
+              образ, который подчеркивает вашу индивидуальность.
+            </p>
+            <a
+              href="/articles/makeup-secrets"
+              className="text-pinkaccent mt-2 inline-block"
+            >
+              Читать далее →
+            </a>
+          </article>
+
+          {/* Можно добавить больше блоков по аналогии */}
         </div>
       </section>
 

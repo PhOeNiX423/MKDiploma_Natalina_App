@@ -7,7 +7,7 @@ module.exports = {
     container: {
       padding: {
         DEFAULT: "30px",
-        lg: "0",
+        lg: "30px",
       },
     },
     screens: {
@@ -17,6 +17,9 @@ module.exports = {
       xl: "1440px",
     },
     extend: {
+      fontFamily: {
+        mbrody: ['"M Brody"', "cursive"],
+      },
       colors: {
         primary: "#1D1D1D",
         pinkaccent: "#D45383",

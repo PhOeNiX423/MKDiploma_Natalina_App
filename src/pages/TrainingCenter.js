@@ -10,10 +10,10 @@ import React from "react";
 
 const TrainingCenter = () => {
   return (
-    <div className="text-primary font-primary space-y-16 py-10">
+    <div className="text-primary font-primary space-y-16 py-8">
       {/* Заголовок страницы */}
       <div className="text-center">
-        <h1 className="text-3xl md:text-5xl font-semibold text-pinkaccent mb-4">
+        <h1 className="font-mbrody text-3xl md:text-5xl font-semibold text-pinkaccent mb-4">
           Бьюти-школа
         </h1>
         <p className="text-pinksecondary text-lg">
@@ -106,7 +106,7 @@ const TrainingCenter = () => {
               образ, который подчеркивает вашу индивидуальность.
             </p>
             <a
-              href="/articles/makeup-secrets"
+              href="/article"
               className="text-pinkaccent mt-2 inline-block"
             >
               Читать далее →
@@ -116,14 +116,13 @@ const TrainingCenter = () => {
           {/* Одна статья */}
           <article className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
             <h3 className="text-xl font-semibold mb-2">
-              Секреты идеального макияжа
+              5 шагов к сияющей коже
             </h3>
             <p className="text-secondary line-clamp-3">
-              Узнайте, как правильно подбирать оттенки, наносить тон и создавать
-              образ, который подчеркивает вашу индивидуальность.
+              Узнайте, как правильно очищать, тонизировать и увлажнять кожу, чтобы она выглядела свежей и ухоженной каждый день.
             </p>
             <a
-              href="/articles/makeup-secrets"
+              href="/article"
               className="text-pinkaccent mt-2 inline-block"
             >
               Читать далее →

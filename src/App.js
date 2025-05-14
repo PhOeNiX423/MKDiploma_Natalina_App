@@ -6,6 +6,8 @@ import ProductDetails from "./pages/ProductDetails";
 import NotFound from "./pages/NotFound";
 import Catalog from "./pages/Catalog";
 import TrainingCenter from "./pages/TrainingCenter";
+import Favorites from "./pages/Favorites";
+import Checkout from "./pages/Checkout";
 
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
@@ -27,6 +29,8 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/beauty_school" element={<TrainingCenter />} />
+            <Route path="/favorites" element={<Favorites />} />
+            {/* <Route path="/checkout" element={<Checkout />} /> */}
             <Route
               path="/catalog"
               element={

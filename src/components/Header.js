@@ -33,7 +33,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoMenu } from "react-icons/io5";
-import { IoClose } from "react-icons/io5";
+import { IoIosArrowUp } from "react-icons/io";
 
 import { CartContext } from "../contexts/CartContext";
 import { SidebarContext } from "../contexts/SidebarContext";
@@ -95,6 +95,9 @@ const Header = () => {
               <Link to="/beauty_school">
                 <p>бьюти-школа</p>
               </Link>
+              {/* <Link to="/onboarding">
+                <p>присоединяйся к нам</p>
+              </Link> */}
             </div>
           </div>
 
@@ -103,12 +106,12 @@ const Header = () => {
             <button onClick={() => setIsSearchOpen(true)}>
               <FiSearch />
             </button>
-            <button>
+            <Link to="/favorites">
               <MdFavoriteBorder />
-            </button>
-            <button>
+            </Link>
+            <Link to="/account">
               <CgProfile />
-            </button>
+            </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="relative bg-pinkaccent w-10 h-10 rounded-full flex items-center justify-center text-white"
@@ -146,10 +149,10 @@ const Header = () => {
           {/* Кнопка корзины внизу */}
           <div className="w-full px-8 pb-8 flex justify-center">
             <button
-              className="text-3xl text-pinkaccent"
+              className="text-3xl text-pinkaccent animate-bounce"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <IoClose />
+              <IoIosArrowUp />
             </button>
           </div>
         </div>
@@ -200,7 +203,7 @@ const Header = () => {
           <button
             onClick={() => {
               setIsOpen(false);
-              setIsSearchOpen(prev => !prev);
+              setIsSearchOpen((prev) => !prev);
               setQuery("");
             }}
             className="flex justify-center"

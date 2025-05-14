@@ -43,7 +43,7 @@ const Catalog = () => {
   return (
     <div className="py-8">
       <div className="text-center">
-        <h1 className="text-3xl md:text-5xl font-semibold mb-4 text-pinkaccent">Каталог продукции</h1>
+        <h1 className="font-mbrody text-3xl md:text-5xl font-semibold mb-4 text-pinkaccent">Каталог продукции</h1>
         <p className="text-pinksecondary text-lg">Найдите свой идеальный продукт — легко и удобно</p>
       </div>
 

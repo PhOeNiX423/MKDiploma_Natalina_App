@@ -1,15 +1,15 @@
 /**
  * Product.js
- * 
+ *
  * Компонент карточки товара для отображения в каталоге, на главной странице и в результатах поиска.
- * 
+ *
  * Принимает:
  * - `product` — объект с данными о товаре (id, название, изображения, цена, рейтинг и т.д.)
- * 
+ *
  * Использует:
  * - `CartContext` — для добавления товара в корзину
  * - `react-icons` — для отображения значков корзины, избранного и рейтинга
- * 
+ *
  * Функциональность:
  * - Отображает:
  *   - Главное изображение товара
@@ -17,7 +17,7 @@
  * - Клик по карточке ведёт на страницу товара (`/product/:id`)
  * - Иконка корзины добавляет товар с количеством 1
  * - Иконка "избранное" переключает локальное состояние (визуальный эффект)
- * 
+ *
  * Особенности:
  * - При отсутствии изображения отображается плейсхолдер
  * - Описание обрезается на 3 строки (через `line-clamp-3`)
@@ -28,6 +28,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { CartContext } from "../contexts/CartContext";
+import { FavoritesContext } from "../contexts/FavoritesContext";
 
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
@@ -35,6 +36,7 @@ import { AiOutlineShopping } from "react-icons/ai";
 
 const Product = ({ product }) => {
   const { addToCart } = useContext(CartContext);
+  const { toggleFavorite, isFavorite } = useContext(FavoritesContext);
   const {
     _id,
     images,
@@ -45,13 +47,10 @@ const Product = ({ product }) => {
     average_rating,
   } = product;
 
-  // Локальное состояние: избран ли товар
-  const [isFavorite, setIsFavorite] = useState(false);
-
   // Функция для переключения состояния избранного
   const handleFavoriteClick = (e) => {
-    e.stopPropagation(); // чтобы клик по сердечку не переходил по ссылке
-    setIsFavorite(!isFavorite);
+    e.stopPropagation();
+    toggleFavorite(product);
   };
 
   // // Функция для обработки клика по корзинке
@@ -109,6 +108,7 @@ const Product = ({ product }) => {
               _id,
               title,
               price,
+              product_line,
               image: images?.[0] ?? "",
               quantity: 1,
             })
@@ -123,7 +123,7 @@ const Product = ({ product }) => {
       <div className="absolute top-2 right-2 p-1 z-10">
         <button onClick={handleFavoriteClick}>
           <div className="flex justify-center items-center w-10 h-10 transition-all duration-300">
-            {isFavorite ? (
+            {isFavorite(_id) ? (
               <MdFavorite className="text-3xl text-pinkaccent" />
             ) : (
               <MdFavoriteBorder className="text-3xl text-pinkaccent" />

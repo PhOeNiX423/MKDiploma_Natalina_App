@@ -100,16 +100,17 @@ const Sidebar = () => {
             </span>
           </div>
 
-          <Link
+          {/* <Link
             to="/cart"
             className="w-full text-sm text-pinksecondary font-medium border border-pinksecondary py-3 text-center rounded-lg uppercase hover:text-white hover:bg-pinkaccent/80 active:bg-pinkaccent/60 transition"
           >
             посмотреть корзину
-          </Link>
+          </Link> */}
 
           <Link
             to="/checkout"
             className="w-full text-sm font-medium bg-pinkaccent text-white py-3 text-center uppercase rounded-lg hover:bg-gray-800 transition"
+            onClick={handleClose}
           >
             перейти к оформлению
           </Link>

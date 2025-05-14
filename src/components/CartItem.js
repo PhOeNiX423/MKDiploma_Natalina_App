@@ -34,7 +34,7 @@ import { CartContext } from "../contexts/CartContext";
 import { IoCloseOutline } from "react-icons/io5";
 
 const CartItem = ({ item }) => {
-  const { _id, image, title, price, quantity = 1 } = item;
+  const { _id, image, title, price, product_line, quantity = 1 } = item;
   const { increaseQuantity, decreaseQuantity, handleRemove } =
     useContext(CartContext);
 
@@ -53,7 +53,7 @@ const CartItem = ({ item }) => {
       <div className="flex-1 flex flex-col justify-between">
         <div className="flex justify-between items-start gap-2">
           <span className="font-medium text-sm text-black max-w-[50vh]">
-            {title}
+            {title} {product_line}
           </span>
           <button
             onClick={() => handleRemove(_id)}

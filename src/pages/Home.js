@@ -29,11 +29,11 @@ const Home = () => {
 
   return (
     <main>
-      <section className="pb-8 md:pb-16">
+      {/* <section className="md:pb-8">
         <div className="mx-auto">
           <Hero />
         </div>
-      </section>
+      </section> */}
 
       <section className="pb-8 md:pb-16">
           <Categories />

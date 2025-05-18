@@ -47,6 +47,17 @@ const Header = () => {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    if (user) {
+      navigate(user.role === "admin" ? "/admin" : "/user");
+    } else {
+      navigate("/auth");
+    }
+  };
+
   useEffect(() => {
     if (isMobileMenuOpen) {
       const scrollBarWidth =
@@ -109,9 +120,9 @@ const Header = () => {
             <Link to="/favorites">
               <MdFavoriteBorder />
             </Link>
-            <Link to="/account">
+            <button onClick={handleLoginClick}>
               <CgProfile />
-            </Link>
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="relative bg-pinkaccent w-10 h-10 rounded-full flex items-center justify-center text-white"
@@ -210,17 +221,17 @@ const Header = () => {
           >
             <FiSearch className="w-6 h-6 text-gray-500" />
           </button>
-          <Link
-            to="/profile"
+          <button
             className="flex justify-center"
             onClick={() => {
+              handleLoginClick();
               setIsOpen(false);
               setIsSearchOpen(false);
               setQuery("");
             }}
           >
             <CgProfile className="w-6 h-6 text-gray-500" />
-          </Link>
+          </button>
         </div>
       </div>
     </>

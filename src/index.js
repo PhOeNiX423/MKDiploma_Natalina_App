@@ -7,18 +7,21 @@ import { ProductProvider } from "./contexts/ProductContext";
 import SidebarProvider from "./contexts/SidebarContext";
 import CartProvider from "./contexts/CartContext";
 import { FavoritesProvider } from "./contexts/FavoritesContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <FavoritesProvider>
-    <SidebarProvider>
-      <CartProvider>
-        <ProductProvider>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        </ProductProvider>
-      </CartProvider>
-    </SidebarProvider>
-  </FavoritesProvider>
+  <AuthProvider>
+    <FavoritesProvider>
+      <SidebarProvider>
+        <CartProvider>
+          <ProductProvider>
+            <React.StrictMode>
+              <App />
+            </React.StrictMode>
+          </ProductProvider>
+        </CartProvider>
+      </SidebarProvider>
+    </FavoritesProvider>
+  </AuthProvider>
 );

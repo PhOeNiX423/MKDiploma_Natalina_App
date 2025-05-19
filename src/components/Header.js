@@ -25,7 +25,7 @@
  */
 
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { BsCart2 } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
@@ -38,6 +38,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { CartContext } from "../contexts/CartContext";
 import { SidebarContext } from "../contexts/SidebarContext";
 import { SearchContext } from "../contexts/SearchContext";
+import { useAuth } from "../contexts/AuthContext";
 
 const Header = () => {
   const { isOpen, setIsOpen } = useContext(SidebarContext);

@@ -1,11 +1,11 @@
 /**
  * CartContext.js
- * 
+ *
  * Контекст для управления корзиной покупок на сайте.
- * 
+ *
  * Состояние:
  * - `cart` — массив товаров, добавленных в корзину.
- * 
+ *
  * Основные функции:
  * - `addToCart(product)` — добавляет товар в корзину. Если он уже есть, увеличивает его количество.
  * - `increaseQuantity(id)` — увеличивает количество выбранного товара на 1.
@@ -13,30 +13,37 @@
  * - `handleRemove(id)` — полностью удаляет товар из корзины.
  * - `getTotal()` — возвращает общую сумму всех товаров в корзине.
  * - `getItemCount()` — возвращает общее количество товаров (штучно).
- * 
+ *
  * Используется для глобального управления корзиной: отображения, расчёта итогов, удаления и изменения количества.
  */
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-  
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
   const addToCart = (productToAdd) => {
-  const existingItem = cart.find((item) => item._id === productToAdd._id);
-  if (existingItem) {
-    const updatedCart = cart.map((item) =>
-      item._id === productToAdd._id
-        ? { ...item, quantity: item.quantity + productToAdd.quantity }
-        : item
-    );
-    setCart(updatedCart);
-  } else {
-    setCart([...cart, productToAdd]);
-  }
-};
+    const existingItem = cart.find((item) => item._id === productToAdd._id);
+    if (existingItem) {
+      const updatedCart = cart.map((item) =>
+        item._id === productToAdd._id
+          ? { ...item, quantity: item.quantity + productToAdd.quantity }
+          : item
+      );
+      setCart(updatedCart);
+    } else {
+      setCart([...cart, productToAdd]);
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const increaseQuantity = (id) => {
     const updatedCart = cart.map((item) =>
@@ -66,10 +73,18 @@ const CartProvider = ({ children }) => {
   const getItemCount = () => {
     return cart.reduce((acc, item) => acc + item.quantity, 0);
   };
-  
+
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, increaseQuantity, decreaseQuantity, handleRemove, getTotal, getItemCount }}
+      value={{
+        cart,
+        addToCart,
+        increaseQuantity,
+        decreaseQuantity,
+        handleRemove,
+        getTotal,
+        getItemCount,
+      }}
     >
       {children}
     </CartContext.Provider>

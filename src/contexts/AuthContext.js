@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
       const data = await res.json();
 
-      if (res.ok) {
+      if (res.ok && data._id) {
         localStorage.setItem("authUser", JSON.stringify(data));
         setUser(data);
         return { success: true, role: data.role };

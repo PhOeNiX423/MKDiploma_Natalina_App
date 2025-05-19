@@ -40,7 +40,7 @@ const App = () => {
               path="/user"
               element={
                 <RequireAuth allowedRoles={["user"]}>
-                  <UserPage />
+                  <User />
                 </RequireAuth>
               }
             />
@@ -49,7 +49,7 @@ const App = () => {
               path="/admin"
               element={
                 <RequireAuth allowedRoles={["admin"]}>
-                  <AdminPage />
+                  <Admin />
                 </RequireAuth>
               }
             />

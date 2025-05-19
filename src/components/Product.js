@@ -53,12 +53,6 @@ const Product = ({ product }) => {
     toggleFavorite(product);
   };
 
-  // // Функция для обработки клика по корзинке
-  // const handleBasketClick = (e) => {
-  //   e.stopPropagation(); // чтобы клик по корзинке тоже не переходил по ссылке
-  //   // console.log("Товар добавлен в корзину:", _id);
-  // };
-
   return (
     <div className="relative h-full rounded-3xl shadow-md bg-white p-4 flex flex-col">
       <Link to={`/product/${_id}`} className="block flex flex-col h-full">

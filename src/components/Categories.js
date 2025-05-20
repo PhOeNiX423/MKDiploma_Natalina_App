@@ -45,7 +45,7 @@ const Categories = () => {
   };
 
   return (
-    <section className="py-12">
+    <section className="">
       <div className="text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-pinkaccent mb-10">
           Популярные категории

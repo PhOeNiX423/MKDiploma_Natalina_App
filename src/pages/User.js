@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import PurchaseList from "../components/PurchaseList";
 
@@ -20,10 +20,10 @@ export default function User() {
       </div>
 
       <div className="flex items-center justify-end mt-6">
-        <div className="text-pinkaccent text-lg mr-2 font-medium">
+        <button onClick={logout} className="text-pinkaccent items-center flex flex-row text-2xl">
+          <div className="text-lg mr-2 font-medium">
           Выйти
         </div>
-        <button onClick={logout} className="text-pinkaccent text-2xl">
           <IoExitOutline />
         </button>
       </div>

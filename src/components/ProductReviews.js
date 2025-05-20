@@ -24,7 +24,7 @@ import React, { useEffect, useState } from 'react';
 
 import { FaStar } from 'react-icons/fa';
 
-const placeholderAvatar = '/images/placeholders/user_placeholder.jpg'; // временный аватар
+const placeholderAvatar = '/images/placeholders/user_placeholder.png'; // временный аватар
 
 const ProductReviews = ({ productId }) => {
   const [reviews, setReviews] = useState([]);

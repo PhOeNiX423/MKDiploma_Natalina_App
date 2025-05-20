@@ -11,6 +11,7 @@ import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import User from "./pages/User";
 import Admin from "./pages/Admin";
+import Consultant from "./pages/Consultant";
 
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
@@ -44,7 +45,14 @@ const App = () => {
                 </RequireAuth>
               }
             />
-
+            <Route
+              path="/consultant"
+              element={
+                <RequireAuth allowedRoles={["consultant"]}>
+                  <Consultant />
+                </RequireAuth>
+              }
+            />
             <Route
               path="/admin"
               element={

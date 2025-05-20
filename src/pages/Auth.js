@@ -1,25 +1,33 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { IMaskInput } from "react-imask"; 
 
 export default function Auth() {
   const { login } = useAuth();
-  const [loginInput, setLoginInput] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await login(loginInput, password);
+
+    const cleanPhone = "+7" + phone.replace(/\D/g, "").slice(-10);
+
+    const result = await login(cleanPhone, password);
     if (result.success) {
-      navigate(result.role === "admin" ? "/admin" : "/user");
+      const routes = {
+        admin: "/admin",
+        consultant: "/consultant",
+        user: "/user",
+      };
+      navigate(routes[result.role] || "/user");
     } else {
       setErrorMessage(result.message || "Неверный логин или пароль");
     }
   };
 
-  // Убираем ошибку через 5 секунд
   useEffect(() => {
     if (errorMessage) {
       const timeout = setTimeout(() => setErrorMessage(""), 5000);
@@ -54,29 +62,30 @@ export default function Auth() {
 
           <div>
             <label className="block text-sm mb-1 text-gray-700">
-              введите ваш персональный номер:
+              Введите ваш номер телефона:
             </label>
-            <input
-              type="text"
-              autoComplete="username"
-              value={loginInput}
-              onChange={(e) => setLoginInput(e.target.value)}
-              placeholder="000000000"
+            <IMaskInput
+              mask="+7 (000) 000-00-00"
+              value={phone}
+              unmask={false}
+              onAccept={(value) => setPhone(value)}
+              className="border rounded p-2 w-full"
+              placeholder="+7 (___) ___-__-__"
+              name="phone"
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400 transition"
             />
           </div>
 
           <div>
             <label className="block text-sm mb-1 text-gray-700">
-              введите ваш пароль:
+              Введите ваш пароль:
             </label>
             <input
               type="password"
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="пароль"
+              placeholder="Пароль"
               required
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pinksecondary transition"
             />
@@ -91,7 +100,7 @@ export default function Auth() {
 
           <div className="h-10 flex items-center justify-center">
             {errorMessage && (
-              <div className="w-full text-sm text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2">
+              <div className="w-full text-sm text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 text-center">
                 {errorMessage}
               </div>
             )}

@@ -18,9 +18,9 @@ import { ProductContext } from "../contexts/ProductContext";
 
 import Product from "../components/Product";
 import Newsletter from "../components/Newsletter";
-import Hero from "../components/Hero";
 import Categories from "../components/Categories";
 import ProductSkeleton from "../components/ProductSkeleton";
+import PromoSlider from "../components/PromoSlider";
 
 const Home = () => {
   const { products } = useContext(ProductContext);
@@ -31,11 +31,9 @@ const Home = () => {
 
   return (
     <main>
-      {/* <section className="md:pb-8">
-        <div className="mx-auto">
-          <Hero />
-        </div>
-      </section> */}
+      <section className="py-12 md:pb-16 md:pt-8">
+        <PromoSlider />
+      </section>
 
       <section className="pb-8 md:pb-16">
         <Categories />

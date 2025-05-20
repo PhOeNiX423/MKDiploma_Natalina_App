@@ -53,7 +53,13 @@ const Header = () => {
 
   const handleLoginClick = () => {
     if (user) {
-      navigate(user.role === "admin" ? "/admin" : "/user");
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else if (user.role === "consultant") {
+        navigate("/consultant");
+      } else {
+        navigate("/user");
+      }
     } else {
       navigate("/auth");
     }

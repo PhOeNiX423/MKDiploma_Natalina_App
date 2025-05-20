@@ -16,7 +16,7 @@ export default function RequireAuth({ children, allowedRoles }) {
     return <Navigate to="/auth" replace />;
   }
 
-  if (!allowedRoles.includes(user.role)) {
+  if (!allowedRoles.includes(user.role?.trim()?.toLowerCase())) {
     return <Navigate to="/" replace />;
   }
 

@@ -8,12 +8,14 @@ export const AuthProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : null;
   });
 
-  const login = async (login, password) => {
+  const login = async (phone, password) => {
     try {
+      const cleanPhone = "+7" + phone.replace(/\D/g, "").slice(-10);
+
       const res = await fetch(`${process.env.REACT_APP_DB_URL_USERS}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login, password }),
+        body: JSON.stringify({ phone: cleanPhone, password }),
       });
 
       const data = await res.json();

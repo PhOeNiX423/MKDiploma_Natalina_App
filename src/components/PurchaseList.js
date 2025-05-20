@@ -13,9 +13,10 @@ const PurchaseList = ({ userId }) => {
     fetch(`${process.env.REACT_APP_DB_URL_ORDERS}/${userId}`)
       .then((res) => res.json())
       .then(async (data) => {
-        setOrders(data);
+        const filtered = data.filter((order) => order.status === "завершен");
+        setOrders(filtered);
 
-        const allProductIds = data
+        const allProductIds = filtered
           .flatMap((order) => order.products)
           .map((p) => String(p.product_id));
 
@@ -50,7 +51,7 @@ const PurchaseList = ({ userId }) => {
     });
   };
 
-  const allProducts = orders.flatMap((order, index) => {
+  const allProducts = orders.flatMap((order) => {
     if (!Array.isArray(order.products)) return [];
     return order.products.map((product) => {
       const id = String(product.product_id);
@@ -73,7 +74,7 @@ const PurchaseList = ({ userId }) => {
   return (
     <>
       <div className="space-y-4 mt-6">
-        <h2 className="text-xl font-semibold mb-2 text-pinkaccent">
+        <h2 className="text-2xl font-semibold mb-4 text-pinkaccent">
           Мои покупки
         </h2>
         {allProducts.length === 0 && <p>Пока нет заказов.</p>}
@@ -129,7 +130,6 @@ const PurchaseList = ({ userId }) => {
         ))}
       </div>
 
-      {/* Модальное окно — вне обертки */}
       {activeProduct && (
         <ReviewModal
           product={activeProduct}

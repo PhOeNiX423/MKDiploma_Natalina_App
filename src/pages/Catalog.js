@@ -143,7 +143,7 @@ const Catalog = () => {
               value={sortOrder}
               onChange={(e) => handleSortChange(e.target.value)}
             >
-              <option value="default">По популярности</option>
+              <option value="default">По рейтингу</option>
               <option value="asc">По цене (возрастание)</option>
               <option value="desc">По цене (убывание)</option>
             </select>

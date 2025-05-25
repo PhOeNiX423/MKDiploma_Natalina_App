@@ -109,7 +109,7 @@ const Sidebar = () => {
 
           <Link
             to="/checkout"
-            className="w-full text-sm font-medium bg-pinkaccent text-white py-3 text-center uppercase rounded-lg hover:bg-gray-800 transition"
+            className="w-full text-sm font-medium bg-pinkaccent text-white py-3 text-center uppercase rounded-full hover:bg-gray-800 transition"
             onClick={handleClose}
           >
             перейти к оформлению

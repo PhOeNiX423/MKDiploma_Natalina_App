@@ -21,11 +21,13 @@ import RequireAuth from "./components/RequireAuth";
 
 import { SearchProvider } from "./contexts/SearchContext";
 import { CatalogProvider } from "./contexts/CatalogContext";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   return (
     <div className="container mx-auto overflow-hidden pb-14 md:pb-0">
       <Router>
+        <ScrollToTop />
         <SearchProvider>
           <Header />
           <Search />

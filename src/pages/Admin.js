@@ -175,6 +175,8 @@ export default function Admin() {
     }
   };
 
+  const adminCount = users.filter((u) => u.role === "admin").length;
+
   return (
     <div className="p-6">
       <div className="text-center">
@@ -233,12 +235,14 @@ export default function Admin() {
                 >
                   Редактировать
                 </button>
-                <button
-                  onClick={() => handleDelete(user._id)}
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition text-sm"
-                >
-                  Удалить
-                </button>
+                {!(user.role === "admin" && adminCount === 1) && (
+                  <button
+                    onClick={() => handleDelete(user._id)}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition text-sm"
+                  >
+                    Удалить
+                  </button>
+                )}
               </div>
             </li>
           ))}

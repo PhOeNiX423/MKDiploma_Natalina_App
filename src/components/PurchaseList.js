@@ -43,12 +43,13 @@ const PurchaseList = ({ userId }) => {
       });
   }, [userId]);
 
-  const hasReview = (productId) => {
+  const getReviewStatus = (productId) => {
     const productIdStr = String(productId?.$oid || productId);
-    return reviews.some((r) => {
+    const review = reviews.find((r) => {
       const reviewIdStr = String(r.product_id?.$oid || r.product_id);
       return reviewIdStr === productIdStr;
     });
+    return review?.status || null; // "на проверке", "опубликован" или null
   };
 
   const allProducts = orders.flatMap((order) => {
@@ -110,21 +111,35 @@ const PurchaseList = ({ userId }) => {
               </div>
             </div>
             <div className="w-full md:w-auto mt-2 md:mt-0 flex justify-center md:justify-end">
-              <button
-                onClick={() => {
-                  if (!hasReview(product.product_id)) {
-                    setActiveProduct(product);
-                  }
-                }}
-                disabled={hasReview(product.product_id)}
-                className={`px-4 py-2 rounded-md w-full max-w-[180px] md:w-auto transition ${
-                  hasReview(product.product_id)
-                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    : "bg-pinkaccent text-white hover:bg-pink-600"
-                }`}
-              >
-                {hasReview(product.product_id) ? "Оценено" : "Оценить"}
-              </button>
+              {(() => {
+                const status = getReviewStatus(product.product_id);
+                const isDisabled =
+                  status === "опубликован" || status === "на проверке";
+                const label =
+                  status === "опубликован"
+                    ? "Оценено"
+                    : status === "на проверке"
+                    ? "На проверке"
+                    : "Оценить";
+
+                return (
+                  <button
+                    onClick={() => {
+                      if (!isDisabled) setActiveProduct(product);
+                    }}
+                    disabled={isDisabled}
+                    className={`px-4 py-2 rounded-md w-full max-w-[180px] md:w-auto transition ${
+                      status === "опубликован"
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : status === "на проверке"
+                        ? "bg-yellow-200 text-yellow-800 cursor-not-allowed"
+                        : "bg-pinkaccent text-white hover:bg-pink-600"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                );
+              })()}
             </div>
           </div>
         ))}

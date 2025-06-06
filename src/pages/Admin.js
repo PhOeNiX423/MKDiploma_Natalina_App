@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { IoExitOutline } from "react-icons/io5";
 import UserModal from "../components/UserModal";
+import { IoCheckmarkSharp } from "react-icons/io5";
+import { IoMdClose } from "react-icons/io";
 
 const API_URL = process.env.REACT_APP_DB_URL_USERS;
 const ORDERS_URL = process.env.REACT_APP_DB_URL_ORDERS;
@@ -15,6 +17,7 @@ export default function Admin() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [pendingReviews, setPendingReviews] = useState([]);
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
@@ -25,6 +28,15 @@ export default function Admin() {
       .then((data) => {
         setUsers(data);
         setConsultants(data.filter((u) => u.role === "consultant"));
+      })
+      .catch(console.error);
+
+    // Загрузка отзывов
+    fetch(`${process.env.REACT_APP_DB_URL_REVIEWS}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const pending = data.filter((r) => r.status === "на проверке");
+        setPendingReviews(pending);
       })
       .catch(console.error);
 
@@ -50,6 +62,16 @@ export default function Admin() {
       </div>
     );
   }
+
+  const formatPhone = (rawPhone) => {
+    const digits = rawPhone.replace(/\D/g, ""); // оставить только цифры
+    if (digits.length !== 11 || !digits.startsWith("7")) return rawPhone;
+
+    return `+7 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(
+      7,
+      9
+    )}-${digits.slice(9)}`;
+  };
 
   const openModalToEdit = (user) => {
     setEditingUser(user);
@@ -126,6 +148,33 @@ export default function Admin() {
     }
   };
 
+  const approveReview = async (id, productId) => {
+    try {
+      await fetch(`${process.env.REACT_APP_DB_URL_REVIEWS}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "опубликован" }),
+      });
+
+      // Удаляем из списка
+      setPendingReviews((prev) => prev.filter((r) => r._id !== id));
+    } catch (error) {
+      console.error("Ошибка при одобрении отзыва:", error);
+    }
+  };
+
+  const deleteReview = async (id) => {
+    try {
+      await fetch(`${process.env.REACT_APP_DB_URL_REVIEWS}/${id}`, {
+        method: "DELETE",
+      });
+
+      setPendingReviews((prev) => prev.filter((r) => r._id !== id));
+    } catch (error) {
+      console.error("Ошибка при удалении отзыва:", error);
+    }
+  };
+
   return (
     <div className="p-6">
       <div className="text-center">
@@ -170,7 +219,9 @@ export default function Admin() {
                 <p className="font-semibold text-lg text-gray-800">
                   {user.name}
                 </p>
-                <p className="text-sm text-gray-500">Телефон: {user.phone}</p>
+                <p className="text-sm text-gray-500">
+                  Телефон: {formatPhone(user.phone)}
+                </p>
                 <span className="text-xs font-medium inline-block mt-1 px-2 py-1 rounded bg-secondary text-white">
                   Роль: {user.role}
                 </span>
@@ -209,7 +260,9 @@ export default function Admin() {
             className="bg-white border border-gray-200 p-4 rounded flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4"
           >
             <div>
-              <p className="text-lg font-semibold text-gray-800">{order.name}</p>
+              <p className="text-lg font-semibold text-gray-800">
+                {order.name}
+              </p>
               <p className="text-sm text-gray-500">{order.phone}</p>
             </div>
 
@@ -241,6 +294,46 @@ export default function Admin() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="mx-auto mt-12">
+        <h2 className="text-2xl font-semibold mb-4 text-pinkaccent">
+          Отзывы на модерации
+        </h2>
+
+        {pendingReviews.length === 0 && (
+          <p className="text-gray-500">Нет отзывов, ожидающих модерации.</p>
+        )}
+
+        <div className="space-y-4">
+          {pendingReviews.map((review) => (
+            <div
+              key={review._id}
+              className="bg-white border border-gray-200 p-4 rounded flex flex-col gap-2"
+            >
+              <p className="text-sm text-gray-800">
+                <strong>Комментарий:</strong> {review.comment}
+              </p>
+              <p className="text-sm text-gray-500">
+                <strong>Оценка:</strong> {review.rating} ★
+              </p>
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={() => approveReview(review._id, review.product_id)}
+                  className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+                >
+                  <IoCheckmarkSharp />
+                </button>
+                <button
+                  onClick={() => deleteReview(review._id)}
+                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                >
+                  <IoMdClose />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {modalOpen && (

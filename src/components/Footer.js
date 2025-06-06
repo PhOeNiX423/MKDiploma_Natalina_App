@@ -13,7 +13,10 @@ const Footer = () => {
 
     if (isOpening && sectionRefs.current[section]) {
       setTimeout(() => {
-        sectionRefs.current[section].scrollIntoView({ behavior: "smooth", block: "start" });
+        sectionRefs.current[section].scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
       }, 100); // немного позже, чтобы успела анимация
     }
   };
@@ -37,16 +40,33 @@ const Footer = () => {
       title: "Контакты",
       links: [
         "+7 495 500 00 00",
-        <a href="mailto:info@marykay.ru" key="email">info@marykay.ru</a>,
+        <a href="mailto:info@marykay.ru" key="email">
+          info@marykay.ru
+        </a>,
         "142093, Москва, Ленинградское шоссе, д.16, стр.3",
       ],
     },
     {
       title: "Юридическая информация",
       links: [
-        <Link to="/privacy-policy" className="hover:text-pinkaccent transition-colors duration-200">Политика конфиденциальности</Link>,
-        <Link to="/terms-of-use" className="hover:text-pinkaccent transition-colors duration-200">Пользовательское соглашение</Link>,
-        <Link to="/cookies-policy" className="hover:text-pinkaccent transition-colors duration-200">Политика cookies</Link>,
+        <Link
+          to="/privacy-policy"
+          className="hover:text-pinkaccent transition-colors duration-200"
+        >
+          Политика конфиденциальности
+        </Link>,
+        <Link
+          to="/terms-of-use"
+          className="hover:text-pinkaccent transition-colors duration-200"
+        >
+          Пользовательское соглашение
+        </Link>,
+        <Link
+          to="/cookies-policy"
+          className="hover:text-pinkaccent transition-colors duration-200"
+        >
+          Политика cookies
+        </Link>,
       ],
     },
   ];
@@ -55,12 +75,28 @@ const Footer = () => {
     <footer className="bg-white pt-10 border-t border-gray-100 text-sm text-gray-600">
       <div className="text-center md:text-center text-left">
         <div className="flex flex-col items-center gap-4">
-          <img src="/images/logos/mk-logo-pink.svg" alt="Mary Kay" className="h-6" />
-          <p className="text-gray-500 max-w-md">Улучшаем жизни женщин и детей во всем мире!</p>
+          <img
+            src="/images/logos/mk-logo-pink.svg"
+            alt="Mary Kay"
+            className="h-6"
+          />
+          <p className="text-gray-500 max-w-md">
+            Улучшаем жизни женщин и детей во всем мире!
+          </p>
           <div className="flex gap-3 mt-2">
-            <a href="#" target="_blank" rel="noreferrer"><img src="/images/social/youtube.svg" alt="YouTube" className="h-10 w-10" /></a>
-            <a href="#" target="_blank" rel="noreferrer"><img src="/images/social/vk.svg" alt="VK" className="h-10 w-10" /></a>
-            <a href="#" target="_blank" rel="noreferrer"><img src="/images/social/ok.svg" alt="OK" className="h-10 w-10" /></a>
+            <a href="#" target="_blank" rel="noreferrer">
+              <img
+                src="/images/social/youtube.svg"
+                alt="YouTube"
+                className="h-10 w-10"
+              />
+            </a>
+            <a href="#" target="_blank" rel="noreferrer">
+              <img src="/images/social/vk.svg" alt="VK" className="h-10 w-10" />
+            </a>
+            <a href="#" target="_blank" rel="noreferrer">
+              <img src="/images/social/ok.svg" alt="OK" className="h-10 w-10" />
+            </a>
           </div>
         </div>
       </div>
@@ -74,10 +110,14 @@ const Footer = () => {
               className="text-pinkaccent font-bold mb-3 flex items-center md:justify-start justify-between w-full md:cursor-default"
               onClick={() => isMobile && toggleSection(index)}
             >
-              <span className="text-xl md:text-xl">{section.title}</span>
+              <span className="text-xl md:text-xl text-left block leading-snug break-words">
+                {section.title}
+              </span>
               {isMobile && (
                 <FaChevronDown
-                  className={`transform transition-transform text-lg ${openSection === index ? "rotate-180" : ""}`}
+                  className={`transform transition-transform text-lg ${
+                    openSection === index ? "rotate-180" : ""
+                  }`}
                 />
               )}
             </button>
@@ -91,7 +131,10 @@ const Footer = () => {
               }`}
             >
               {section.links.map((item, i) => (
-                <li key={i} className="pb-4 md:pb-0 hover:text-pinkaccent transition-colors duration-200">
+                <li
+                  key={i}
+                  className="pb-4 md:pb-0 hover:text-pinkaccent transition-colors duration-200"
+                >
                   {item}
                 </li>
               ))}

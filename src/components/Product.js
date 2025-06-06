@@ -76,11 +76,19 @@ const Product = ({ product }) => {
         {/* Категория, название, цена, описание */}
         <div className="flex flex-col flex-grow gap-2">
           <div className="flex justify-between items-start gap-2">
-            <h2 className="font-semibold text-left leading-tight">
+            <h2
+  className="font-semibold text-left leading-tight break-words"
+  style={{ hyphens: "auto" }}
+  lang="ru"
+>
               {title} {product_line}
             </h2>
             <div className="flex items-center gap-1 font-semibold">
-              <span>{average_rating.toFixed(1)}</span>
+              <span>
+                {Number.isFinite(average_rating)
+                  ? average_rating.toFixed(1)
+                  : "0.0"}
+              </span>
               <FaStar className="text-yellowmedium text-sm" />
             </div>
           </div>

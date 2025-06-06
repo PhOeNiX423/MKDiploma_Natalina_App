@@ -81,7 +81,10 @@ const UserModal = ({
             mask="+7 (000) 000-00-00"
             value={form.phone}
             unmask={false}
-            onAccept={(value) => setForm({ ...form, phone: value })}
+            onAccept={(value, maskRef) => {
+              const raw = "+7" + maskRef.unmaskedValue;
+              setForm({ ...form, phone: raw });
+            }}
             className="w-full border rounded px-3 py-2 mb-3"
             placeholder="+7 (___) ___-__-__"
             name="phone"

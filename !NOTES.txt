@@ -1,5 +1,3 @@
-✅До предзащиты:
-
 ✅Ссылки:
         - Фронтенд - https://mk-diploma-natalina-app.vercel.app/
         - Бэкенд - https://mkdiploma-natalina-server.onrender.com/
